@@ -16,11 +16,20 @@ namespace OneLookAPI.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<List<Project>> GetUserProject(int id)
+        public async Task<ActionResult<List<Project>>> GetProjects(int id)
         {
-            var projects = await _dbContext.Projects.Where(x => x.UserId == id).ToListAsync();
+            var projects = await _dbContext.Projects.ToListAsync();
 
-            return projects;         
+            var userProjects = projects.Where(p => p.UserId == id).ToList();
+
+            if (userProjects == null)
+            {
+                throw new Exception("error");
+            }
+            else
+            {
+                return userProjects;
+            }
         }
     }
 }

@@ -35,12 +35,6 @@ namespace OneLookAPI.Models
                 entity.Property(e => e.ProjectName)
                     .HasMaxLength(50)
                     .IsUnicode(false);
-
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.Projects)
-                    .HasForeignKey(d => d.UserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Projects_Users");
             });
 
             modelBuilder.Entity<User>(entity =>
